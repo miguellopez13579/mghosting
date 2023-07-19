@@ -1,0 +1,304 @@
+const planData = {
+
+  selectedPlan: null,
+  selectedLocation: null,
+  selectedPlanType: "plus",
+  levelNames: {
+    "essentials": "Essentials",
+    "standard": "Performance",
+    "plus": "Performance+"
+  },
+  locationMap: {
+    "virginia": {
+      title: "Ashburn, Virginia",
+      flagIcon: {
+        imgUrl: "/flags/us.png",
+        altText: "US Flag"
+      }
+    },
+    "texas": {
+      title: "Dallas, Texas",
+      flagIcon: {
+        imgUrl: "/flags/us.png",
+        altText: "US Flag"
+      }
+    },
+    "california": {
+      title: "Los Angeles, California",
+      flagIcon: {
+        imgUrl: "/flags/us.png",
+        altText: "US Flag"
+      }
+    },
+    "miami": {
+      title: "Miami, Florida",
+      flagIcon: {
+        imgUrl: "/flags/us.png",
+        altText: "US Flag"
+      }
+    },
+    "germany": {
+      title: "Falkenstein, Germany",
+      flagIcon: {
+        imgUrl: "/flags/de.png",
+        altText: "US Flag"
+        // add new flag here
+      }
+    },
+    "singapore": {
+      title: "Singapore",
+      flagIcon: {
+        imgUrl: "/flags/singapore.png",
+        altText: "Singapore Flag"
+      }
+    }
+  },
+  planDescriptors: {
+    "essentials": {
+      "4": {
+        price: 10,
+        details: ["2 Shared Logical Cores", "Ryzen 9 3900/3950X", "60GB NVMe SSD Storage"]
+      },
+      "6": {
+        price: 14,
+        details: ["2 Shared Logical Cores", "Ryzen 9 3900/3950X", "100GB NVMe SSD Storage"]
+      }
+    },
+    "standard": {
+      "8": {
+        price: 18,
+        details: ["2 Dedicated Logical Cores", "Ryzen 9 3900/3950X", "120GB NVMe SSD Storage", "Create 3 Additional Servers"]
+      },
+      "12": {
+        price: 27,
+        details: ["3 Dedicated Logical Cores", "Ryzen 9 3900/3950X", "180GB NVMe SSD Storage", "Create 4 Additional Servers"]
+      },
+      "16": {
+        price: 36,
+        details: ["4 Dedicated Logical Cores", "Ryzen 9 3900/3950X", "240GB NVMe SSD Storage", "Create 5 Additional Servers"]
+      },
+      "20": {
+        price: 45,
+        details: ["5 Dedicated Logical Cores", "Ryzen 9 3900/3950X", "300GB NVMe SSD Storage", "Create 6 Additional Servers"]
+      },
+      "24": {
+        price: 54,
+        details: ["6 Dedicated Logical Cores", "Ryzen 9 3900/3950X", "360GB NVMe SSD Storage", "Create 7 Additional Servers"]
+      },
+      "32": {
+        price: 72,
+        details: ["8 Dedicated Logical Cores", "Ryzen 9 3900/3950X", "480GB NVMe SSD Storage", "Create 10 Additional Servers"]
+      }
+    },
+    "plus": {
+      "8": {
+        price: 24,
+        details: ["2 Dedicated Logical Cores", "Ryzen 9 5950X", "150GB NVMe SSD Storage", "Create 3 Additional Servers"]
+      },
+      "12": {
+        price: 36,
+        details: ["3 Dedicated Logical Cores", "Ryzen 9 5950X", "225GB NVMe SSD Storage", "Create 4 Additional Servers"]
+      },
+      "16": {
+        price: 48,
+        details: ["4 Dedicated Logical Cores", "Ryzen 9 5950X", "300GB NVMe SSD Storage", "Create 5 Additional Servers"]
+      },
+      "20": {
+        price: 60,
+        details: ["5 Dedicated Logical Cores", "Ryzen 9 5950X", "375GB NVMe SSD Storage", "Create 6 Additional Servers"]
+      },
+      "24": {
+        price: 72,
+        details: ["6 Dedicated Logical Cores", "Ryzen 9 5950X", "450GB NVMe SSD Storage", "Create 7 Additional Servers"]
+      },
+      "32": {
+        price: 96,
+        details: ["8 Dedicated Logical Cores", "Ryzen 9 5950X", "600GB NVMe SSD Storage", "Create 10 Additional Servers"]
+      }
+    }
+  },
+  planList: {
+    "essentials": {
+      "virginia": {
+        stocked: null,
+        plans: {
+          4: 210,
+          6: 217
+        }
+      },
+      "texas": {
+        stocked: null,
+        plans: {
+          4: 211,
+          6: 218
+        }
+      },
+      "california": {
+        stocked: null,
+        plans: {
+          4: 212,
+          6: 219
+        }
+      },
+      "miami": {
+        stocked: null,
+        plans: {
+          4: 229,
+          6: 230
+        }
+      },
+      "germany": {
+        stocked: null,
+        plans: {
+          4: 213,
+          6: 220
+        }
+      },
+      "singapore": {
+        disabled: true,
+        placeholder: "Only available for <span class='accented-gradient-text' onclick='selectPerformance(\"plus\")'>Performance+</span> Plans"
+      }
+    },
+
+    "standard": {
+      "virginia": {
+        stocked: null,
+        plans: {
+          8: 82,
+          12: 83,
+          16: 84,
+          20: 85,
+          24: 86,
+          32: 224
+        }
+      },
+      "texas": {
+        stocked: null,
+        plans: {
+          8: 87,
+          12: 88,
+          16: 89,
+          20: 90,
+          24: 91,
+          32: 223
+        }
+      },
+      "california": {
+        stocked: null,
+        plans: {
+          8: 188,
+          12: 189,
+          16: 190,
+          20: 191,
+          24: 192,
+          32: 222
+        }
+      },
+      "miami": {
+        stocked: null,
+        plans: {
+          8: 231,
+          12: 232,
+          16: 233,
+          20: 234,
+          24: 235,
+          32: 236
+        }
+      },
+      "germany": {
+        stocked: null,
+        plans: {
+          8: 92,
+          12: 93,
+          16: 94,
+          20: 95,
+          24: 96,
+          32: 171
+        }
+      },
+      "singapore": {
+        disabled: true,
+        placeholder: "Only available for <span class='accented-gradient-text' onclick='selectPerformance(\"plus\")'>Performance+</span> Plans"
+      }
+    },
+    "plus": {
+      "virginia": {
+        stocked: null,
+        plans: {
+          8: 102,
+          12: 103,
+          16: 104,
+          20: 105,
+          24: 106,
+          32: 225
+        }
+      },
+      "texas": {
+        stocked: null,
+        plans: {
+          8: 107,
+          12: 108,
+          16: 109,
+          20: 110,
+          24: 111,
+          32: 215
+        }
+      },
+      "california": {
+        stocked: null,
+        plans: {
+          8: 193,
+          12: 194,
+          16: 195,
+          20: 196,
+          24: 197,
+          32: 216
+        }
+      },
+      "miami": {
+        stocked: null,
+        plans: {
+          8: 237,
+          12: 238,
+          16: 239,
+          20: 240,
+          24: 241,
+          32: 242
+        }
+      },
+      "germany": {
+        stocked: null,
+        plans: {
+          8: 145,
+          12: 146,
+          16: 147,
+          20: 148,
+          24: 149,
+          32: 221
+        }
+      },
+      "singapore": {
+        stocked: null,
+        plans: {
+          8: 263,
+          12: 264,
+          16: 265,
+          20: 266,
+          24: 267,
+          32: 268
+        }
+      }
+    }
+  },
+  planMap: new Map()
+};
+
+initializePlanSelector(planData);
+
+(() => {
+  // check for plan type in url
+  const planType = location.search.slice(1);
+  if (Object.keys(planData.planList).includes(planType)) {
+    document.querySelector(`button[plan=${planType}]`).onclick();
+  }
+})();
